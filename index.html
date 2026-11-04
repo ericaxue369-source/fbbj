@@ -22537,6 +22537,19 @@ select:focus-visible {
       line-height: 14px !important;
     }
 
+    .owo-phone-device header > div[style*="font-size: 19px"][style*="font-weight: 800"] {
+      font-size: 14px !important;
+      font-weight: 500 !important;
+    }
+
+    .owo-phone-device header > button[style*="height: 39px"][style*="padding: 0 16px"] {
+      height: 28px !important;
+      min-height: 28px !important;
+      max-height: 28px !important;
+      padding: 0 12px !important;
+      border-radius: 14px !important;
+    }
+
     .owo-phone-device [style*="font-weight: 950"],
     .owo-phone-device [style*="font-weight:950"],
     .owo-phone-device [style*="font-weight: 900"],
@@ -57820,7 +57833,7 @@ function HomeIndicator() {
 }
 /* Phosphor Icons compatible SVG layer. Phosphor Icons is MIT licensed. */
 function PhosphorIconFallback({ name, size = 24, weight = "regular", color = "currentColor", style = {}, title = "" }) {
-  const stroke = { fill: "none", stroke: "currentColor", strokeWidth: 16, strokeLinecap: "round", strokeLinejoin: "round" };
+  const stroke = { fill: "none", stroke: "currentColor", strokeWidth: weight === "medium" ? 20 : weight === "bold" ? 24 : 16, strokeLinecap: "round", strokeLinejoin: "round" };
   const path = d => React.createElement("path", { d, ...stroke });
   const circle = (cx, cy, r) => React.createElement("circle", { cx, cy, r, ...stroke });
   const line = (x1, y1, x2, y2) => React.createElement("line", { x1, y1, x2, y2, ...stroke });
@@ -57864,6 +57877,7 @@ function PhosphorIconFallback({ name, size = 24, weight = "regular", color = "cu
       case "bell": children = React.createElement(React.Fragment, null, path("M48 176h160c-16-16-24-32-24-72a56 56 0 0 0-112 0c0 40-8 56-24 72Z"), path("M104 208a24 24 0 0 0 48 0")); break;
       case "shield-check": children = React.createElement(React.Fragment, null, duotone(React.createElement("path", { d: "m128 24 88 32v64c0 56-36 96-88 112-52-16-88-56-88-112V56Z" })), path("m128 24 88 32v64c0 56-36 96-88 112-52-16-88-56-88-112V56Z"), path("m88 128 24 24 56-56")); break;
       case "file-text": children = React.createElement(React.Fragment, null, path("M152 32H64a16 16 0 0 0-16 16v160a16 16 0 0 0 16 16h128a16 16 0 0 0 16-16V88Z"), path("M152 32v56h56M88 136h80M88 176h80")); break;
+      case "floppy-disk": children = React.createElement(React.Fragment, null, path("M216 216H40a8 8 0 0 1-8-8V48a16 16 0 0 1 16-16h120l56 56v120a8 8 0 0 1-8 8Z"), path("M80 32v64h88V32M80 216v-72h96v72")); break;
       case "palette": children = React.createElement(React.Fragment, null, path("M128 24a104 104 0 0 0 0 208h16a16 16 0 0 0 12-27 16 16 0 0 1 12-27h16a48 48 0 0 0 48-48c0-59-47-106-104-106Z"), fillCircle(80,112,8), fillCircle(104,72,8), fillCircle(152,72,8), fillCircle(184,104,8)); break;
       case "translate": children = React.createElement(React.Fragment, null, line(32,56,136,56), path("M72 32v24c0 56-20 88-48 112M48 104c20 32 48 52 80 64"), path("m144 208 40-104 40 104M160 168h48")); break;
       case "question": children = React.createElement(React.Fragment, null, circle(128,128,104), path("M96 96a32 32 0 1 1 43 30c-11 5-11 14-11 26"), fillCircle(128,188,8)); break;
@@ -57877,7 +57891,7 @@ function PhosphorIconFallback({ name, size = 24, weight = "regular", color = "cu
   return React.createElement("svg", { width: size, height: size, viewBox: "0 0 256 256", fill: "none", color, role: title ? "img" : undefined, "aria-hidden": title ? undefined : true, style: { display: "block", flexShrink: 0, ...style } }, title && React.createElement("title", null, title), children);
 }
 function PhosphorIcon({ name, size = 24, weight = "regular", color = "currentColor", style = {}, title = "" }) {
-  if (name === "tray") return React.createElement(PhosphorIconFallback, { name, size, weight, color, style, title });
+  if (name === "tray" || name === "floppy-disk") return React.createElement(PhosphorIconFallback, { name, size: name === "floppy-disk" ? 20 : size, weight: name === "floppy-disk" ? "regular" : weight, color, style, title });
   const iconName = name === "video" ? "video-camera" : name === "bookmark" ? "bookmark-simple" : name === "sparkles" ? "sparkle" : name;
   const familyClass = weight === "fill" ? "ph-fill" : weight === "duotone" ? "ph-duotone" : "ph";
   return React.createElement("i", {
@@ -59166,7 +59180,7 @@ const HOME_PATTERN_SURFACES = {
     text: "#111111"
   }
 };
-function AnimatedLikeIcon({ liked, size = 17, color, inactiveColor }) {
+function AnimatedLikeIcon({ liked, size = 17, color, inactiveColor, weight = "regular" }) {
   const sparkColor = color || T.purple;
   const mutedColor = inactiveColor || T.text3;
   const sparks = [[-13,-12,5],[0,-17,4],[14,-11,5],[-17,1,3],[17,2,3]];
@@ -59175,7 +59189,7 @@ function AnimatedLikeIcon({ liked, size = 17, color, inactiveColor }) {
   return React.createElement("span", {
     key: liked ? "liked" : "unliked",
     style: { position: "relative", width: size + 4, height: size + 4, display: "inline-flex", alignItems: "center", justifyContent: "center", overflow: "visible", transformOrigin: "center", animation: mounted.current ? liked ? "owoHeartPop .5s cubic-bezier(.22,1.55,.36,1)" : "owoHeartUnpop .3s cubic-bezier(.22,1,.36,1)" : "none", filter: liked ? "drop-shadow(0 3px 7px rgba(159,151,235,.42))" : "none" }
-  }, React.createElement(PhosphorIcon, { name: "heart", size, weight: liked ? "fill" : "regular", color: liked ? sparkColor : mutedColor }), liked && sparks.map((spark, index) => React.createElement("i", { key: index, style: { position: "absolute", left: "50%", top: "50%", width: spark[2], height: spark[2], marginLeft: -spark[2] / 2, marginTop: -spark[2] / 2, background: index === 1 ? "#F5C764" : index === 3 ? "#DCCBFF" : sparkColor, clipPath: "polygon(50% 0%,61% 36%,100% 50%,61% 64%,50% 100%,39% 64%,0% 50%,39% 36%)", boxShadow: "0 0 5px rgba(159,151,235,.42)", pointerEvents: "none", "--spark-x": spark[0] + "px", "--spark-y": spark[1] + "px", animation: "owoLikeSpark .52s " + index * .025 + "s ease-out both" } })));
+  }, React.createElement(PhosphorIconFallback, { name: "heart", size, weight: liked ? "fill" : weight, color: liked ? sparkColor : mutedColor, title: liked ? "已赞" : "赞" }), liked && sparks.map((spark, index) => React.createElement("i", { key: index, style: { position: "absolute", left: "50%", top: "50%", width: spark[2], height: spark[2], marginLeft: -spark[2] / 2, marginTop: -spark[2] / 2, background: index === 1 ? "#F5C764" : index === 3 ? "#DCCBFF" : sparkColor, clipPath: "polygon(50% 0%,61% 36%,100% 50%,61% 64%,50% 100%,39% 64%,0% 50%,39% 36%)", boxShadow: "0 0 5px rgba(159,151,235,.42)", pointerEvents: "none", "--spark-x": spark[0] + "px", "--spark-y": spark[1] + "px", animation: "owoLikeSpark .52s " + index * .025 + "s ease-out both" } })));
 }
 function DigitalTwinChatIcon({ size = 28, active = false, avatarUrl = "" }) {
   return React.createElement("span", {
@@ -63804,6 +63818,7 @@ function HomeScreen({
       .owo-twin-chat-icon img{transform-origin:50% 70%;animation:owoTwinHairFloat 2s ease-in-out infinite}
       .owo-twin-chat-icon.is-active{animation:owoTwinWake .36s cubic-bezier(.22,1.55,.36,1)}
       .owo-twin-chat-icon.is-active .owo-twin-glow{filter:drop-shadow(0 0 5px rgba(98,153,255,.8)) drop-shadow(0 0 7px rgba(159,151,235,.72))}
+      .owo-twin-chat-icon + span{font-weight:500!important}
       .owo-twin-prompt{animation:owoTwinPromptWave .62s cubic-bezier(.18,.86,.24,1) both,owoTwinPromptFloat 1.7s .62s ease-in-out infinite}
       @media(prefers-reduced-motion:reduce){.owo-twin-chat-icon *,.owo-twin-prompt{animation:none!important}}
     `), React.createElement(StatusBar, null), React.createElement("div", {
@@ -64721,6 +64736,8 @@ function HomeScreen({
       placeholder: "\u8BF4\u70B9\u4EC0\u4E48\u2026",
       style: {
         flex: 1,
+        height: 32,
+        lineHeight: "32px",
         background: "none",
         border: "none",
         outline: "none",
@@ -64736,8 +64753,8 @@ function HomeScreen({
         setComposing(false);
       },
       style: {
-        width: 34,
-        height: 34,
+        width: 32,
+        height: 32,
         borderRadius: "50%",
         background: T.grad,
         border: "none",
@@ -64762,7 +64779,7 @@ function HomeScreen({
       style: {
         display: "flex",
         alignItems: "center",
-        gap: 4
+        gap: 0
       }
     }, React.createElement("div", {
       onClick: openComposer,
@@ -64780,7 +64797,7 @@ function HomeScreen({
     }, "\u5199\u4E0B\u4F60\u7684\u60F3\u6CD5\u2026"), React.createElement("button", {
       onClick: () => toggleLike(postId, activePost.likes),
       style: {
-        width: 55,
+        width: "auto",
         height: 24,
         display: "flex",
         alignItems: "center",
@@ -64792,7 +64809,7 @@ function HomeScreen({
         flexShrink: 0,
         padding: 0
       }
-    }, React.createElement(AnimatedLikeIcon, { liked, size: 21, color: ACCENT, inactiveColor: META }), React.createElement("span", {
+    }, React.createElement(AnimatedLikeIcon, { liked, size: 21, color: ACCENT, inactiveColor: META, weight: "medium" }), React.createElement("span", {
       style: {
         fontSize: 12,
         color: liked ? ACCENT : META,
@@ -64802,7 +64819,7 @@ function HomeScreen({
     }, fmt(likeCount))), React.createElement("button", {
       onClick: openComposer,
       style: {
-        width: 55,
+        width: "auto",
         height: 24,
         display: "flex",
         alignItems: "center",
@@ -64812,9 +64829,10 @@ function HomeScreen({
         border: "none",
         cursor: "pointer",
         flexShrink: 0,
-        padding: 0
+        padding: 0,
+        marginLeft: 16
       }
-    }, React.createElement(PhosphorIcon, { name: "chat-circle", size: 21, color: META }), React.createElement("span", {
+    }, React.createElement(PhosphorIconFallback, { name: "chat-circle", size: 21, weight: "medium", color: META, title: "评论" }), React.createElement("span", {
       style: {
         fontSize: 12,
         color: META,
@@ -64824,7 +64842,7 @@ function HomeScreen({
     }, commentCount)), React.createElement("button", {
       onClick: () => toggleSave(postId, Math.floor(activePost.likes * 0.4)),
       style: {
-        width: 55,
+        width: "auto",
         height: 24,
         display: "flex",
         alignItems: "center",
@@ -64834,9 +64852,10 @@ function HomeScreen({
         border: "none",
         cursor: "pointer",
         flexShrink: 0,
-        padding: 0
+        padding: 0,
+        marginLeft: 16
       }
-    }, React.createElement(PhosphorIcon, { name: "bookmark-simple", size: 21, weight: saved ? "fill" : "regular", color: saved ? ACCENT : META, style: { transition: "transform .15s", transform: saved ? "scale(1.1)" : "scale(1)" } }), React.createElement("span", {
+    }, React.createElement(PhosphorIconFallback, { name: "bookmark", size: 21, weight: saved ? "fill" : "medium", color: saved ? ACCENT : META, title: saved ? "已收藏" : "收藏", style: { transition: "transform .15s", transform: saved ? "scale(1.1)" : "scale(1)" } }), React.createElement("span", {
       style: {
         fontSize: 12,
         color: saved ? ACCENT : META,
@@ -64857,9 +64876,10 @@ function HomeScreen({
       "aria-label": "向作者分身提问",
       style: {
         position: "relative",
-        width: 55,
+        width: "auto",
         height: 24,
         padding: 0,
+        marginLeft: 16,
         border: "none",
         borderRadius: 12,
         background: twinChatActive ? "rgba(159,151,235,.16)" : "transparent",
