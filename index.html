@@ -24660,6 +24660,11 @@ html[data-owo-motion="off"] .od-feed-card * { animation:none;transition:none; }
 .owo-profile-works-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:8px;align-items:start;margin:0 0 14px}
 .owo-profile-works-column{display:flex;flex-direction:column;gap:10px;min-width:0}
 .owo-profile-post-card{min-width:0;break-inside:avoid}
+.owo-profile-post-cover{position:relative;min-width:0}
+.owo-profile-post-cover.is-text-only{padding-bottom:28px}
+.owo-profile-post-views{position:absolute;left:8px;bottom:8px;z-index:2;display:inline-flex;align-items:center;gap:3px;max-width:calc(50% - 12px);padding:2px 4px;border-radius:4px;background:rgba(0,0,0,.6);color:#fff;font-size:11px;font-weight:400;line-height:14px;font-variant-numeric:tabular-nums;white-space:nowrap;pointer-events:none}
+.owo-profile-post-views>span{overflow:hidden;text-overflow:ellipsis}
+.owo-profile-post-views svg{flex-shrink:0}
 .owo-profile-detail-author{display:flex;align-items:center;gap:9px;min-width:0;flex:1;font-size:14px;font-weight:600;color:var(--owo-color-text-primary)}.owo-profile-detail-author img{width:32px;height:32px;border-radius:50%;object-fit:cover;flex:none}.owo-profile-detail-meta{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:12px 0 0;padding:0 2px;color:var(--owo-color-text-tertiary);font-size:11px;line-height:1.5}.owo-profile-detail-meta>span:first-child{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.owo-profile-detail-views{display:inline-flex;align-items:center;gap:4px;flex:none;color:var(--owo-color-text-tertiary);font-size:12px;white-space:nowrap}
 .owo-profile-post-filters{display:flex;gap:8px;overflow-x:auto;margin:0 -16px 12px;padding:0 16px 4px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
 .owo-profile-post-filters::-webkit-scrollbar{display:none}
@@ -24856,7 +24861,7 @@ html[data-owo-motion="off"] .owo-points-page *{animation:none;transition:none}
 .owo-blackbox-choice-grid small{font-size:11px;line-height:1.4;color:var(--owo-color-text-secondary)}
 .owo-blackbox-points-choice{gap:5px}.owo-blackbox-points-choice .owo-blackbox-choice-icon{margin-bottom:4px}
 
-.op-feed-custom-wrap{margin-bottom:14px}.op-feed-card-custom{margin-bottom:0}.op-feed-card-custom .op-feed-art{margin-bottom:-12px}.op-feed-card-custom .op-feed-copy{padding:0 5px 2px}.op-feed-card-custom .op-feed-copy h3{font-size:14px;font-weight:500;line-height:1.5;letter-spacing:0;white-space:pre-line;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.op-feed-custom-wrap{margin-bottom:14px}.op-feed-card-custom{margin-bottom:0}.op-feed-card-custom .op-feed-art{margin-bottom:-12px}.op-feed-card-custom .op-feed-art>.owo-profile-post-views{bottom:20px}.op-feed-card-custom .op-feed-copy{padding:0 5px 2px}.op-feed-card-custom .op-feed-copy h3{font-size:14px;font-weight:500;line-height:1.5;letter-spacing:0;white-space:pre-line;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
 .owo-box-composer .owo-growth-header{border-bottom:0}.owo-box-composer .owo-growth-main{padding:18px 16px 28px;overflow-x:hidden;scroll-padding-bottom:24px}.owo-box-composer .owo-growth-footer{padding-top:8px;border-top:0;background:var(--owo-color-bg-app)}
 .owo-composer-save-state{width:60px;text-align:right;padding-right:6px;color:var(--owo-color-text-secondary);font-size:12px;font-weight:400}.owo-composer-question-label{display:block;margin:4px 0 10px;font-size:20px;font-weight:650;line-height:1.4;letter-spacing:-.02em}.owo-box-composer .owo-growth-input.is-question{min-height:78px;height:78px;padding:12px 14px 25px;border-color:transparent;background:var(--owo-color-card-muted);font-size:14px;font-weight:400;box-sizing:border-box;resize:none}.owo-box-composer .owo-growth-input:focus{border-color:color-mix(in srgb,var(--owo-color-brand-strong) 58%,var(--owo-color-border));background:var(--owo-color-card)}
 .owo-box-composer .owo-growth-section-title{margin:30px 0 12px}.owo-box-composer .owo-growth-section-title h2{font-size:15px;font-weight:600}.owo-box-composer .owo-growth-secret-editor{margin:0 0 12px;padding:14px;border:0;border-radius:16px;background:var(--owo-color-card);box-shadow:0 10px 28px -24px #17112455}.owo-box-composer .owo-growth-secret-heading{margin-bottom:12px}.owo-box-composer .owo-growth-secret-heading h3{font-size:12px;font-weight:600;letter-spacing:.04em;color:var(--owo-color-text-secondary)}.owo-box-composer .owo-growth-secret-editor .owo-growth-input{margin:0;background:var(--owo-color-card-muted);box-sizing:border-box}.owo-box-composer .owo-growth-secret-editor .owo-growth-input:last-child{margin-bottom:0}.owo-composer-field-label{display:flex;align-items:baseline;justify-content:space-between;gap:12px}.owo-composer-field-label .owo-growth-label,.owo-composer-field-label .owo-composer-question-label{margin-right:auto}.owo-composer-char-count{flex:none;color:var(--owo-color-text-tertiary);font-size:12px;font-weight:400;line-height:1.5;font-variant-numeric:tabular-nums}.owo-composer-char-count.is-over{color:var(--creator-error)}.owo-box-composer .owo-growth-add{display:inline-flex;align-items:center;justify-content:flex-start;gap:10px;width:auto;min-height:44px;height:auto;margin-top:4px;padding:0 4px 0 0;flex:none;border:0;border-radius:0;background:transparent;color:var(--owo-color-text-primary);font-size:11px;font-weight:500;box-shadow:none;transition:transform .14s ease}.owo-box-composer .owo-growth-add:active{transform:scale(.96);box-shadow:var(--owo-shadow-none)}
@@ -63247,11 +63252,13 @@ function WhiteBoxCard({
   energyLocked = false,
   listMetaOnly = false,
   showSummary = true,
-  showTime = true
+  showTime = true,
+  showViews = false
 }) {
   if (post.aiContentType === "knowledge") return React.createElement(AiKnowledgeCard, { post, onClick, index, opening });
   if (post.aiContentType === "experience") return React.createElement(AiExperienceCard, { post, onClick, index, opening, revealed: energyRevealed, locked: energyLocked });
   const [liked, setLiked] = useState(false);
+  const cover = (content, textOnly = false, enabled = showViews) => enabled ? React.createElement("div", { className: "owo-profile-post-cover" + (textOnly ? " is-text-only" : "") }, content, React.createElement(OwoProfileViewCount, { post })) : content;
   const isOpen = read || opening;
   const pattern = HOME_PATTERN_SURFACES[post.id];
   const swatch = OPEN_SWATCHES[index % OPEN_SWATCHES.length];
@@ -63280,7 +63287,7 @@ function WhiteBoxCard({
   }, React.createElement("div", {
     onClick: () => onClick(post),
     style: { overflow: "hidden", cursor: opening ? "default" : "pointer", borderRadius: 10, background: T.bgCard, border: "none", boxShadow: opening ? "0 22px 46px rgba(45,36,84,.22)" : "none", transform: opening ? "scale(1.08) translateY(-5px)" : "scale(1)", transition: "transform .4s cubic-bezier(.22,1,.36,1),box-shadow .4s ease" }
-  }, React.createElement(TextCardSurface, {
+  }, cover(React.createElement(TextCardSurface, {
     templateId: post.cardTemplate || "minimal",
     title: "",
     content: post.contentType === "long" ? longCoverText || post.title || "长文封面" : textCoverPages[0] || post.content,
@@ -63292,7 +63299,7 @@ function WhiteBoxCard({
     backgroundShade: post.cardBackgroundShade,
     textColor: post.cardTextColor,
     borderless: true
-  }), !post.hideFeedTitle && React.createElement("div", { style: { padding: "8px 9px 0", color: T.text1, fontSize: 13, fontWeight: 500, lineHeight: 1.42, display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical", overflow: "hidden" } }, title), React.createElement("div", {
+  })), !post.hideFeedTitle && React.createElement("div", { style: { padding: "8px 9px 0", color: T.text1, fontSize: 13, fontWeight: 500, lineHeight: 1.42, display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical", overflow: "hidden" } }, title), React.createElement("div", {
     style: { display: "flex", alignItems: "center", gap: 5, minHeight: 24, padding: "7px 8px 8px", minWidth: 0 }
   }, React.createElement("img", { src: avUrl(post.authorSeed || "owo-me"), alt: "", style: { width: 22, height: 22, flexShrink: 0, borderRadius: "50%", objectFit: "cover" } }), React.createElement("div", { style: { flex: 1, minWidth: 0, overflow: "hidden" } }, React.createElement("div", { style: { fontSize: 11, lineHeight: 1.15, fontWeight: 400, color: T.text2, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" } }, post.authorName || "我")), React.createElement("button", { onClick: event => { event.stopPropagation(); setLiked(value => !value); }, "aria-label": liked ? "取消点赞" : "点赞", className: "owo-like-compact", style: { flexShrink: 0, whiteSpace: "nowrap", wordBreak: "keep-all", border: "none", background: "transparent", color: liked ? T.purple : T.text3, padding: "4px 0", display: "inline-flex", alignItems: "center", justifyContent: "flex-end", gap: 1, fontSize: 10, lineHeight: 1, fontWeight: 400, cursor: "pointer", WebkitTapHighlightColor: "transparent" } }, React.createElement(AnimatedLikeIcon, { liked, size: 14, color: T.purple, inactiveColor: T.text3 }), React.createElement("span", { style: { whiteSpace: "nowrap" } }, count)))));
   if (!post.isAI) return React.createElement("div", {
@@ -63301,10 +63308,10 @@ function WhiteBoxCard({
   }, React.createElement("div", {
     onClick: () => onClick(post),
     style: { position: "relative", overflow: "hidden", cursor: opening ? "default" : "pointer", width: "100%", minHeight: humanImage || humanVideo ? "auto" : 150, borderRadius: 10, background: humanImage || humanVideo ? "transparent" : T.bgCard, border: "none", boxShadow: opening ? "0 22px 46px rgba(45,36,84,.22)" : "none", transform: opening ? "scale(1.08) translateY(-5px)" : "scale(1)", transition: "transform .4s cubic-bezier(.22,1,.36,1),box-shadow .4s ease" }
-  }, humanImage && React.createElement(HomeHumanImageGrid, { images: post.images || [] }), humanVideo && React.createElement("div", {
+  }, humanImage && cover(React.createElement(HomeHumanImageGrid, { images: post.images || [] })), humanVideo && cover(React.createElement("div", {
     style: { position: "relative", height: isLandscapeVideo ? 108 : 170, borderRadius: 10, backgroundColor: "#0B0B0F", backgroundImage: post.videoPoster ? "url(" + post.videoPoster + ")" : "linear-gradient(135deg,#252433,#111118)", backgroundPosition: "center", backgroundSize: isLandscapeVideo ? "contain" : "cover", backgroundRepeat: "no-repeat", overflow: "hidden" }
-  }, React.createElement("video", { src: humanVideo, poster: post.videoPoster || undefined, muted: true, playsInline: true, style: { width: "100%", height: "100%", objectFit: isLandscapeVideo ? "contain" : "cover", opacity: post.videoPoster ? 0 : .82 } }), React.createElement("div", { style: { position: "absolute", top: 8, right: 8, color: "#fff", display: "flex", alignItems: "center", justifyContent: "center", filter: "drop-shadow(0 2px 5px rgba(0,0,0,.65))" } }, React.createElement(PhosphorIcon, { name: "play", size: 14, weight: "fill", color: "#fff" })), post.videoDuration > 0 && React.createElement("span", { style: { position: "absolute", right: 8, bottom: 8, padding: "3px 6px", borderRadius: 5, background: "rgba(0,0,0,.60)", color: "#fff", fontSize: 9.5, fontWeight: 750 } }, formatMediaDuration(post.videoDuration))), React.createElement("div", { style: { padding: humanImage || humanVideo ? "8px 5px 2px" : "12px 10px 10px" } },
-    feedText && React.createElement("div", { style: { fontSize: 13, fontWeight: 500, color: T.text1, lineHeight: 1.42, marginBottom: 7, display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical", overflow: "hidden", overflowWrap: "anywhere" } }, feedText),
+  }, React.createElement("video", { src: humanVideo, poster: post.videoPoster || undefined, muted: true, playsInline: true, style: { width: "100%", height: "100%", objectFit: isLandscapeVideo ? "contain" : "cover", opacity: post.videoPoster ? 0 : .82 } }), React.createElement("div", { style: { position: "absolute", top: 8, right: 8, color: "#fff", display: "flex", alignItems: "center", justifyContent: "center", filter: "drop-shadow(0 2px 5px rgba(0,0,0,.65))" } }, React.createElement(PhosphorIcon, { name: "play", size: 14, weight: "fill", color: "#fff" })), post.videoDuration > 0 && React.createElement("span", { style: { position: "absolute", right: 8, bottom: 8, padding: "3px 6px", borderRadius: 5, background: "rgba(0,0,0,.60)", color: "#fff", fontSize: 9.5, fontWeight: 750 } }, formatMediaDuration(post.videoDuration)))), React.createElement("div", { style: { padding: humanImage || humanVideo ? "8px 5px 2px" : "12px 10px 10px" } },
+    feedText && cover(React.createElement("div", { style: { fontSize: 13, fontWeight: 500, color: T.text1, lineHeight: 1.42, marginBottom: 7, display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical", overflow: "hidden", overflowWrap: "anywhere" } }, feedText), true, showViews && !humanImage && !humanVideo),
     React.createElement("div", { style: { display: "flex", alignItems: "center", gap: 5, minHeight: 24, marginTop: feedText ? 0 : 1, minWidth: 0 } },
       React.createElement("img", { src: avUrl(post.authorSeed || "owo-me"), alt: "", style: { width: 22, height: 22, flexShrink: 0, borderRadius: "50%", objectFit: "cover" } }),
       React.createElement("div", { style: { flex: 1, minWidth: 0, overflow: "hidden" } }, React.createElement("div", { style: { fontSize: 11, lineHeight: 1.15, fontWeight: 400, color: T.text2, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" } }, post.authorName || "我")),
@@ -67036,7 +67043,7 @@ function owoComparisonBlackboxColor(post){
   if(!base)return legacy||OWO_BOX_COLORS[0];
   return {line:base,top:owoComparisonHexBlend(base,"#FFFFFF",.48),front:owoComparisonHexBlend(base,"#101014",.42),side:owoComparisonHexBlend(base,"#101014",.70)};
 }
-function OwoComparisonPrototypeCard({hostRef,onOpen,variant,visited=false,locked=false,post:customPost=null}){
+function OwoComparisonPrototypeCard({hostRef,onOpen,variant,visited=false,locked=false,post:customPost=null,showViews=false}){
   const h=React.createElement,trigger=useRef(null),[entry,setEntry]=useState(null),[seen,setSeen]=useState(visited),isC=variant==="C",isD=variant==="D";
   useEffect(()=>{if(visited)setSeen(true);},[visited]);
   useEffect(()=>{
@@ -67053,7 +67060,7 @@ function OwoComparisonPrototypeCard({hostRef,onOpen,variant,visited=false,locked
     if(entry||!onOpen(post,trigger.current,"prepare"))return;
     const rect=trigger.current.querySelector(".op-feed-art").getBoundingClientRect().toJSON();
     if(owoLiquidMotionOff(trigger.current)){setSeen(true);onOpen(post,null,"enter");}else setEntry(rect);
-  }},h("div",{className:"op-feed-art"},locked&&h(OwoBoxQuotaLock),isD?h(OwoLiquidBox,{active:seen}):isC?h(OwoPocketCArtwork,{activated:seen}):h(OwoPocketCase,{activated:coverSeen,color:color||OWO_BOX_COLORS[0],className:customPost?"is-unified-blackbox":"",themeId:customPost?.themeId})),
+  }},h("div",{className:"op-feed-art"},showViews&&h(OwoProfileViewCount,{post}),locked&&h(OwoBoxQuotaLock),isD?h(OwoLiquidBox,{active:seen}):isC?h(OwoPocketCArtwork,{activated:seen}):h(OwoPocketCase,{activated:coverSeen,color:color||OWO_BOX_COLORS[0],className:customPost?"is-unified-blackbox":"",themeId:customPost?.themeId})),
   !isC&&!isD&&h("div",{className:"op-feed-copy"},h("h3",null,post.title)));
   return h(React.Fragment,null,h("div",{className:customPost?"op-feed-custom-wrap":undefined},card),
   entry&&h(OwoComparisonEntry,{hostRef,origin:entry,repeat:seen,variant,trigger,color,themeId:customPost?.themeId,onEnter:()=>{setSeen(true);setEntry(null);onOpen(post,null,"enter");},onCancel:()=>{setEntry(null);onOpen(post,null,"cancel");},customBox:!!customPost}));
@@ -67447,9 +67454,13 @@ function OwoProfilePostFilter({value,onChange,includeAll=true}){
   const h=React.createElement,items=[...(includeAll?[['all','全部']]:[]),['text','笔记'],['image','图文'],['image-only','仅图片'],['video','视频'],['blackbox','黑盒']];
   return h('nav',{className:'owo-profile-post-filters','aria-label':'笔记类型'},items.map(([id,label])=>h('button',{type:'button',key:id,'aria-pressed':value===id,onClick:()=>onChange(id)},label)));
 }
-function OwoProfilePostCard({post,onOpen,index=0,hostRef}){
+function OwoProfileViewCount({post}){
+  const h=React.createElement,views=post.views ?? `${(((Number(post.likes)||0)*1.7+860)/1000).toFixed(1)}k`;
+  return h("span",{className:"owo-profile-post-views","aria-label":`${views} 次浏览`},h(PhosphorIcon,{name:"eye",size:13,color:"#fff","aria-hidden":true}),h("span",null,views));
+}
+function OwoProfilePostCard({post,onOpen,index=0,hostRef,showViews=false}){
   const h=React.createElement,type=owoProfilePostType(post);
-  return type==='blackbox'?h(OwoComparisonPrototypeCard,{hostRef,variant:'B',post,onOpen:()=>{onOpen(post);return true;}}):h(WhiteBoxCard,{post,onClick:onOpen,index,showTime:false});
+  return type==='blackbox'?h(OwoComparisonPrototypeCard,{hostRef,variant:'B',post,showViews,onOpen:()=>{onOpen(post);return true;}}):h(WhiteBoxCard,{post,onClick:onOpen,index,showTime:false,showViews});
 }
 function OwoCreatorProfileCard({ box, onOpen }) {
   const h=React.createElement;
@@ -101571,7 +101582,7 @@ function ProfileScreen({
   }, t))), worksTab === "笔记" && React.createElement(React.Fragment,null,
     React.createElement("div",{className:"owo-profile-works-grid"},[0,1].map(col=>React.createElement("div",{key:col,className:"owo-profile-works-column"},
       col===0&&React.createElement(ProfileDraftGridCard,{onOpen:()=>setSubPage("draftBox"),extraDraft:creatorGrowth.drafts.new?{type:"text",title:creatorGrowth.drafts.new.question||"未完成的黑盒",content:creatorGrowth.drafts.new.secrets?.[0]?.content||"继续编辑黑盒秘籍"}:null}),
-      filteredProfilePostItems.filter((_,index)=>index%2===col).map((item,index)=>React.createElement(OwoProfilePostCard,{key:item.id,post:item,hostRef:{current:null},index,onOpen:post=>{
+      filteredProfilePostItems.filter((_,index)=>index%2===col).map((item,index)=>React.createElement(OwoProfilePostCard,{key:item.id,post:item,hostRef:{current:null},index,showViews:true,onOpen:post=>{
         if(owoProfilePostType(post)==="blackbox"&&creatorGrowth.boxes.some(box=>box.id===post.id)){setSubPage({type:"creatorBox",id:post.id});return;}
         setProfileReadPostIds(previous=>new Set(previous).add(post.postId||post.id));setSubPage({type:post.isOwnNote?"ownPublished":"homePostDetail",id:post.id,postId:post.postId,post,mine:true});
       }})),
