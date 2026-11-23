@@ -24665,6 +24665,8 @@ html[data-owo-motion="off"] .od-feed-card * { animation:none;transition:none; }
 .owo-avatar-mention-dot { width:6px;height:6px;flex:none;border-radius:50%;background:var(--owo-color-brand-action); }
 .owo-avatar-mention-title { display:block;margin:10px 0 4px;font-size:14px;font-weight:500;line-height:1.6; }
 .owo-avatar-mention-open { display:flex;align-items:center;justify-content:space-between;gap:8px;padding-top:10px;margin-top:10px;border-top:1px solid var(--owo-color-border);font-size:14px;color:var(--owo-color-brand-action); }
+.owo-avatar-test-message{padding:0;text-align:left;font:inherit;appearance:none;cursor:pointer;overflow:hidden}.owo-avatar-test-message:focus-visible{outline:2px solid var(--owo-color-brand);outline-offset:3px}.owo-avatar-test-cover{display:grid;place-items:center;position:relative;overflow:hidden;min-height:148px;max-height:210px;box-sizing:border-box;border-radius:12px;background:linear-gradient(135deg,var(--test-accent,#8478e8),var(--test-soft,#c9c3fa));color:#fff}.owo-avatar-test-cover img{display:block;max-width:100%;max-height:210px;width:auto;height:auto;object-fit:contain}.owo-avatar-test-art{width:100%;padding:18px;box-sizing:border-box;font-size:17px;font-weight:750;line-height:1.4;text-shadow:0 1px 8px #0002}.owo-avatar-test-action{display:flex;box-sizing:border-box;width:100%;align-items:center;justify-content:space-between;gap:8px;padding:8px;color:var(--owo-color-brand-action);font-size:13px;font-weight:650}.owo-avatar-test-action svg{flex:none}
+
 :root[data-owo-resolved-theme="dark"] .owo-avatar-mention-open { color:var(--owo-color-brand); }
 .owo-note-submit { position:relative;isolation:isolate;overflow:hidden;min-height:48px;background:var(--owo-color-brand);color:var(--owo-color-on-brand); }
 .owo-note-submit[aria-busy="true"] { --cc-accent:#d9d0ff;--cc-accent-2:#fff;--cc-speed:2;--cc-intensity:1; }
@@ -68052,7 +68054,7 @@ function HomeScreen({
     if (activePost?.id != null) setCommentInputs(previous => ({ ...previous, [activePost.id]: value }));
   }, commentInputRef, activePost?.authorName, shareContacts);
   const commentImageInputRef = useRef(null);
-  const PRIMARY_HOME_TABS = ["关注", "发现", "测测"];
+  const PRIMARY_HOME_TABS = ["关注", "发现", "黑盒"];
   const DISCOVER_TABS = ["推荐", "大学", "求职", "找人", "创业", "科研", "考研", "实习", "科普", "生活", "搞笑", "奇幻", "艺术", "职场", "其他"];
   const [homeMode, setHomeMode] = useState("发现");
   const [lastSeenFollowingSignature, setLastSeenFollowingSignature] = useState("");
@@ -68209,12 +68211,7 @@ function HomeScreen({
   const featuredHomeIds = new Set(featuredHomeOrder);
   const featuredHomePosts = featuredHomeOrder.map(id => homeSourcePosts.find(post => post.id === id)).filter(Boolean);
   const noteFeedPosts = [...publicCreatorBoxes, ...featuredHomePosts, ...homeSourcePosts.filter(post => !post.isUserBlackBox && !featuredHomeIds.has(post.id))];
-  // Discover mixes a selection of tests into notes; 测测 retains the full catalog.
-  const discoverTests = HOME_TEST_GAMES.slice(0, 4);
   const allHomePosts = [...noteFeedPosts];
-  [3, 9, 16, 24].forEach((position, index) => {
-    if (discoverTests[index]) allHomePosts.splice(Math.min(position, allHomePosts.length), 0, discoverTests[index]);
-  });
   const _tabPosts = allHomePosts.filter(p => {
     const category = POST_TAB_MAP[p.id] || p.category || p.tag || "";
     if (category === activeTab) return true;
@@ -68244,17 +68241,15 @@ function HomeScreen({
   ];
   const followingFeedSignature = followedPosts.map(post => `${post.id}:${post.createdAt || post.sentAt || ""}`).join("|");
   const hasUnreadFollowing = homeMode !== "关注" && !!followedPosts.length && followingFeedSignature !== lastSeenFollowingSignature;
-  const filteredPosts = homeMode === "测测" ? HOME_TEST_GAMES : homeMode === "关注" ? followedPosts : activeTab === "推荐" ? allHomePosts : _tabPosts.length ? _tabPosts : allHomePosts;
+  const filteredPosts = homeMode === "黑盒" ? allHomePosts.filter(post => post.isUserBlackBox || post.contentType === "blackbox") : homeMode === "关注" ? followedPosts : activeTab === "推荐" ? allHomePosts : _tabPosts.length ? _tabPosts : allHomePosts;
   const searchedPosts = review && ["加载中", "加载失败", "暂无笔记"].some(review.is) ? [] : review?.is("加载更多") ? filteredPosts.slice(0, 12) : filteredPosts;
-  const searchScopePosts = homeMode === "测测" ? HOME_TEST_GAMES : homeMode === "关注" ? followedPosts : allHomePosts;
+  const searchScopePosts = homeMode === "黑盒" ? allHomePosts.filter(post => post.isUserBlackBox || post.contentType === "blackbox") : homeMode === "关注" ? followedPosts : allHomePosts;
   const searchResults = searchScopePosts.filter(p => {
     const q = homeQuery.trim().toLowerCase();
     if (!q) return true;
     return [p.title, p.content, p.authorName, p.category, p.tag].filter(Boolean).join(" ").toLowerCase().includes(q);
   });
-  const searchSuggestions = homeMode === "测测"
-    ? ["职业测试", "消费人格", "美国大学", "去哪留学", "性格测试", "趣味测试"]
-    : homeMode === "关注"
+  const searchSuggestions = homeMode === "关注"
       ? ["最近更新", "求职经验", "留学申请", "创业故事", "科研分享", "职场成长"]
       : ["大学申请", "求职经验", "找合伙人", "科研项目", "实习攻略", "职场成长"];
   const saveSearchHistory = keyword => {
@@ -70837,7 +70832,7 @@ function HomeScreen({
       onClick: () => selectHomeMode(tab),
       "aria-label": tab === "关注" && hasUnreadFollowing ? "关注，有新动态" : tab,
       style: { position: "relative", minWidth: 36, height: 40, padding: 0, border: "none", background: "transparent", color: on ? T.text1 : T.text3, fontSize: 15, fontWeight: on ? 600 : 400, letterSpacing: "-.01em", cursor: "pointer", whiteSpace: "nowrap", transform: on ? "scale(1.12)" : "scale(1)", transformOrigin: "center" }
-    }, tab, tab === "关注" && hasUnreadFollowing && React.createElement("span", { "aria-hidden": true, style: { position: "absolute", top: 3, right: -5, width: 7, height: 7, borderRadius: "50%", background: T.purple, boxShadow: `0 0 0 2px ${T.bg},0 0 8px rgba(159,151,235,.45)` } }), React.createElement("span", { className: "owo-home-primary-indicator", "aria-hidden": true, style: { position: "absolute", left: "50%", bottom: 1, width: on ? 18 : 0, height: 2, borderRadius: 999, background: T.purple, transform: "translateX(-50%)" } }));
+    }, tab, tab === "关注" && hasUnreadFollowing && React.createElement("span", { "aria-hidden": true, style: { position: "absolute", top: 3, right: -5, width: 7, height: 7, borderRadius: "50%", background: T.purple, boxShadow: "0 0 5px rgba(159,151,235,.38)" } }), React.createElement("span", { className: "owo-home-primary-indicator", "aria-hidden": true, style: { position: "absolute", left: "50%", bottom: 1, width: on ? 18 : 0, height: 2, borderRadius: 999, background: T.purple, transform: "translateX(-50%)" } }));
   })), React.createElement("button", {
     onClick: openPublishSheet,
     className:"owo-home-publish-plus",
@@ -70942,7 +70937,7 @@ function HomeScreen({
     });
     return originalCard;
   })))), searchedPosts.length === 0 && (review?.is("加载中") ? React.createElement(OwoFeedSkeleton) : React.createElement("div", { className: "owo-feed-feedback" }, React.createElement(OwoStatusFeedback, {
-      spirit: true, text: review?.is("加载失败") ? "笔记暂时无法加载" : homeQuery ? `没有找到「${homeQuery}」` : homeMode === "关注" ? "还没有关注的笔记" : "这里还没有笔记",
+      spirit: true, text: review?.is("加载失败") ? "笔记暂时无法加载" : homeQuery ? `没有找到「${homeQuery}」` : homeMode === "关注" ? "还没有关注的笔记" : homeMode === "黑盒" ? "这里还没有公开黑盒" : "这里还没有笔记",
       error: review?.is("加载失败"), action: review?.is("加载失败") ? "重试" : undefined, busy: review?.phase === "pending", onAction: () => review?.recover()
     }))), review?.is("加载更多") && React.createElement(OwoStatusFeedback, { compact: true, busy: true, text: "正在加载更多" })), toast && (String(toast).startsWith("笔记已发布") ? React.createElement(OwoPublishSuccess, { message:toast }) : React.createElement("div", { className: "owo-feedback-toast", role: "status" }, toast)), React.createElement(BottomNav, {
     active: navActive,
@@ -71080,11 +71075,11 @@ function BottomNav({
           position: "relative",
           width: 52,
           height: 52,
-          padding: 3,
+          padding: 0,
           boxSizing: "border-box",
           borderRadius: "50%",
-          background: T.bgCard,
-          boxShadow: "0 4px 14px rgba(57,47,97,.20),0 0 0 1px " + T.hairline
+          background: "transparent",
+          boxShadow: "0 4px 14px rgba(57,47,97,.16)"
         }
       }, React.createElement("img", {
         src: avUrl("owo-me"),
@@ -79643,7 +79638,7 @@ function ChatScreen({
         minWidth: 0,
         boxSizing: "border-box",
         flex: "0 1 auto",
-        padding: "10px 14px",
+        padding: isTestReminder ? 8 : "10px 14px",
         fontSize: 13.5,
         lineHeight: 1.5,
         letterSpacing: 0,
@@ -81205,7 +81200,7 @@ function CandidateChatScreen({
         minWidth: 0,
         boxSizing: "border-box",
         flex: "0 1 auto",
-        padding: "10px 14px",
+        padding: isTestReminder ? 8 : "10px 14px",
         fontSize: 13.5,
         lineHeight: 1.5,
         letterSpacing: 0,
@@ -82252,7 +82247,7 @@ function AvatarScreen({
   onOpenWeeklyReport,
   profileName = "雷军"
 }) {
-  const [pointsOpen,setPointsOpen]=useState(false),[pointsCompose,setPointsCompose]=useState(false);
+  const [pointsOpen,setPointsOpen]=useState(false),[pointsCompose,setPointsCompose]=useState(false),[activeTestGame,setActiveTestGame]=useState(null),[testReminderTime]=useState(()=>Date.now());
   const [feed, setFeed] = useState(AVATAR_INIT_FEED);
   const schedule = useOwoSafeTimers();
   const growth = useOwoGrowth();
@@ -82261,7 +82256,8 @@ function AvatarScreen({
   const [mentionPost,setMentionPost] = useState(null),[mentionToast,setMentionToast] = useState("");
   const mentionOpener = useRef(null);
   const notices = owoAvatarMentionNotices(growth,profileName,demo,mentionReads);
-  const timeline = [...feed,...notices].sort((a,b)=>a.sentAt-b.sentAt);
+  const testReminders = HOME_TEST_GAMES.slice(0,4).map((game,index)=>({id:"test-reminder-"+game.id,side:"ai",sentAt:testReminderTime+index,testGame:game,text:"给你准备了一个小测试，点开看看吧。"}));
+  const timeline = [...feed,...notices,...testReminders].sort((a,b)=>a.sentAt-b.sentAt);
   useEffect(()=>{const refresh=()=>{try{setMentionReads(owoReadNoteMentionReads());}catch{}};window.addEventListener("owo:mention-read",refresh);window.addEventListener("storage",refresh);return()=>{window.removeEventListener("owo:mention-read",refresh);window.removeEventListener("storage",refresh);};},[]);
   const openMention = (item,event) => {
     mentionOpener.current=event?.currentTarget;
@@ -82334,6 +82330,7 @@ function AvatarScreen({
     setKnowledgeSuggestion(null);
   };
   const BOTTOM_NAV_H = 0;
+  if(activeTestGame)return React.createElement(TestGameScreen,{game:activeTestGame,onClose:()=>setActiveTestGame(null)});
   if(mentionPost)return React.createElement(React.Fragment,null,React.createElement(ProfilePostDetailScreen,{post:mentionPost,mine:false,profileName,onBack:closeMention}),mentionToast&&React.createElement("div",{className:"owo-feedback-toast",role:"status"},mentionToast));
   if(pointsCompose)return React.createElement(OwoBlackBoxComposer,{onBack:()=>setPointsCompose(false),onPublished:()=>setPointsCompose(false)});
   if(pointsOpen)return React.createElement(OwoPointsScreen,{onBack:()=>setPointsOpen(false),onPublish:()=>setPointsCompose(true),onTrain:()=>onNav("training")});
@@ -82451,6 +82448,7 @@ function AvatarScreen({
     const isMe = item.side === "me";
     const isSystem = item.side === "system";
     const isMention = !!item.mentionPost;
+    const isTestReminder = !!item.testGame;
     const isLastAI = !isMe && item.id === timeline.filter(f => f.side === "ai").slice(-1)[0]?.id;
     const bs = isMe ? {
       bg: T._theme === "dark" ? "rgba(159,151,235,.24)" : "#EAE5FF",
@@ -82493,19 +82491,19 @@ function AvatarScreen({
       size: 30
     }) : React.createElement(MyAIAv, {
       size: 30
-    }), React.createElement(isMention ? "button" : "div", {
-      type:isMention?"button":undefined,
-      className:isMention?"owo-avatar-mention-message":undefined,
+    }), React.createElement(isMention||isTestReminder ? "button" : "div", {
+      type:isMention||isTestReminder?"button":undefined,
+      className:isMention?"owo-avatar-mention-message":isTestReminder?"owo-avatar-test-message":undefined,
       "data-owo-mention-id":isMention?item.id:undefined,
-      "aria-label":isMention?(item.unread?"未读，":"")+item.text+" 查看笔记："+(item.mentionPost.publishTitle||item.mentionPost.title):undefined,
-      onClick:isMention?event=>openMention(item,event):undefined,
+      "aria-label":isMention?(item.unread?"未读，":"")+item.text+" 查看笔记："+(item.mentionPost.publishTitle||item.mentionPost.title):isTestReminder?"来测一下："+item.testGame.title:undefined,
+      onClick:isMention?event=>openMention(item,event):isTestReminder?()=>setActiveTestGame(item.testGame):undefined,
       style: {
         maxWidth: "calc(100% - 76px)",
         width: "fit-content",
         minWidth: 0,
         boxSizing: "border-box",
         flex: "0 1 auto",
-        padding: "10px 14px",
+        padding: isTestReminder ? 0 : "10px 14px",
         fontSize: 13.5,
         lineHeight: 1.5,
         letterSpacing: 0,
@@ -82513,13 +82511,15 @@ function AvatarScreen({
         wordBreak: "break-word",
         overflowWrap: "anywhere",
         borderRadius: bs.br,
-        background: bs.bg,
+        background: isTestReminder ? "transparent" : bs.bg,
         color: bs.color,
-        boxShadow: bs.shadow,
-        border: bs.border,
+        boxShadow: isTestReminder ? "none" : bs.shadow,
+        border: isTestReminder ? 0 : bs.border,
         position: "relative"
       }
-    }, isMention ? React.createElement(React.Fragment,null,
+    }, isTestReminder ? React.createElement(React.Fragment,null,
+      React.createElement("div",{className:"owo-avatar-test-cover",style:{"--test-accent":item.testGame.colors?.[0]||"#8478e8","--test-soft":item.testGame.colors?.[1]||"#c9c3fa"}},item.testGame.coverImage?React.createElement("img",{src:item.testGame.coverImage,alt:item.testGame.title,draggable:false}):React.createElement("div",{className:"owo-avatar-test-art"},React.createElement(PhosphorIcon,{name:item.testGame.icon||"sparkle",size:25,color:"#fff",weight:"duotone"}),React.createElement("div",null,item.testGame.title))),
+      React.createElement("span",{className:"owo-avatar-test-action"},"来测一下",React.createElement(PhosphorIcon,{name:"arrow-right",size:16,"aria-hidden":true}))) : isMention ? React.createElement(React.Fragment,null,
       React.createElement("span",{className:"owo-avatar-mention-heading"},item.unread&&React.createElement("span",{className:"owo-avatar-mention-dot","aria-hidden":true}),item.demo?"@ 提醒 · 演示":"@ 提醒",React.createElement("span",null,item.unread?"未读":"已读")),
       React.createElement("span",null,item.text),
       React.createElement("strong",{className:"owo-avatar-mention-title"},item.mentionPost.publishTitle||item.mentionPost.title),
@@ -92142,7 +92142,7 @@ function KnowledgeChatTrain({
         minWidth: 0,
         boxSizing: "border-box",
         flex: "0 1 auto",
-        padding: "10px 14px",
+        padding: isTestReminder ? 8 : "10px 14px",
         fontSize: 13.5,
         lineHeight: 1.5,
         letterSpacing: 0,
