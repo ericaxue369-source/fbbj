@@ -24665,7 +24665,22 @@ html[data-owo-motion="off"] .od-feed-card * { animation:none;transition:none; }
 .owo-avatar-mention-dot { width:6px;height:6px;flex:none;border-radius:50%;background:var(--owo-color-brand-action); }
 .owo-avatar-mention-title { display:block;margin:10px 0 4px;font-size:14px;font-weight:500;line-height:1.6; }
 .owo-avatar-mention-open { display:flex;align-items:center;justify-content:space-between;gap:8px;padding-top:10px;margin-top:10px;border-top:1px solid var(--owo-color-border);font-size:14px;color:var(--owo-color-brand-action); }
-.owo-avatar-test-message{display:block;padding:1px;text-align:left;text-decoration:none;font:inherit;appearance:none;cursor:pointer;overflow:hidden}.owo-avatar-test-message:focus-visible{outline:2px solid var(--owo-color-brand);outline-offset:3px}.owo-avatar-test-cover{display:grid;place-items:center;position:relative;overflow:hidden;min-height:148px;max-height:210px;box-sizing:border-box;border-radius:12px;background:linear-gradient(135deg,var(--test-accent,#8478e8),var(--test-soft,#c9c3fa));color:#fff}.owo-avatar-test-cover img{display:block;max-width:100%;max-height:210px;width:auto;height:auto;object-fit:contain}.owo-avatar-test-art{width:100%;padding:18px;box-sizing:border-box;font-size:17px;font-weight:750;line-height:1.4;text-shadow:0 1px 8px #0002}.owo-avatar-test-action{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:11px 5px 2px;color:var(--owo-color-brand-action);font-size:13px;font-weight:650}.owo-avatar-test-action svg{flex:none}
+.owo-avatar-test-message{display:block;width:240px;max-width:calc(100% - 38px);flex:0 1 240px;min-width:0;box-sizing:border-box;padding:1px;border:1px solid var(--owo-color-border);border-radius:16px;background:var(--owo-color-card-muted);color:var(--owo-color-text-primary);text-align:left;text-decoration:none;font:inherit;appearance:none;cursor:pointer;overflow:hidden}
+.owo-avatar-test-message:focus-visible{outline:2px solid var(--owo-color-brand);outline-offset:3px}
+.owo-avatar-test-cover{display:grid;place-items:center;position:relative;width:100%;aspect-ratio:1;overflow:hidden;box-sizing:border-box;border-radius:14px 14px 0 0;background:var(--owo-color-card-muted)}
+.owo-avatar-test-cover img{display:block;width:100%;height:100%;min-width:0;min-height:0;object-fit:contain}
+.owo-avatar-test-art{padding:16px;font-size:16px;font-weight:600;line-height:1.6}
+.owo-avatar-test-action{display:flex;justify-content:space-between;align-items:center;gap:4px;box-sizing:border-box;width:100%;min-height:44px;padding:10px 8px;color:var(--owo-color-brand-action);font-size:13px;font-weight:500;line-height:1.6;text-align:left}
+.owo-avatar-test-action svg{width:16px;height:16px;flex-shrink:0}
+:root[data-owo-resolved-theme="dark"] .owo-avatar-test-action{color:var(--owo-color-brand)}
+.owo-avatar-test-message.is-legacy{padding:16px;cursor:default}
+.owo-avatar-test-title{margin:0 0 8px;font-size:14px;font-weight:400;line-height:1.6;overflow-wrap:anywhere}
+.owo-avatar-test-title strong{font-weight:600}
+.owo-avatar-test-update{margin:0;font-size:14px;font-weight:400;line-height:1.6;color:var(--owo-color-text-secondary);overflow-wrap:anywhere}
+.owo-avatar-test-preview{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:0 16px;padding:0 0 0 4px;flex-shrink:0;color:var(--owo-color-text-secondary);font-size:12px;line-height:1.5}
+.owo-avatar-test-preview button{min-height:44px;padding:8px;border:0;background:transparent;color:var(--owo-color-text-secondary);font:inherit;cursor:pointer}
+.owo-avatar-test-preview button[aria-pressed="true"]{color:var(--owo-color-text-primary);font-weight:600}
+.owo-avatar-test-preview button:focus-visible{outline:2px solid var(--owo-color-brand);outline-offset:-2px;border-radius:8px}
 
 :root[data-owo-resolved-theme="dark"] .owo-avatar-mention-open { color:var(--owo-color-brand); }
 .owo-note-submit { position:relative;isolation:isolate;overflow:hidden;min-height:48px;background:var(--owo-color-brand);color:var(--owo-color-on-brand); }
@@ -71079,7 +71094,7 @@ function BottomNav({
           boxSizing: "border-box",
           borderRadius: "50%",
           background: "transparent",
-          boxShadow: "0 4px 14px rgba(57,47,97,.16)"
+          boxShadow: "none"
         }
       }, React.createElement("img", {
         src: avUrl("owo-me"),
@@ -71090,9 +71105,9 @@ function BottomNav({
           borderRadius: "50%",
           objectFit: "cover",
           display: "block",
-          border: on ? `2px solid ${ACTIVE}` : "2px solid transparent",
-          boxShadow: on ? "0 2px 10px rgba(159,151,235,.30)" : "none",
-          transition: "border-color .25s, box-shadow .25s"
+          boxSizing: "border-box",
+          border: 0,
+          boxShadow: "none"
         }
       }), React.createElement("div", {
         style: {
@@ -82240,6 +82255,19 @@ function owoAvatarMentionNotices(state, recipient, demo, reads = []) {
     return {id,side:"ai",sentAt:post.createdAt || demo.createdAt,mentionPost:post,demo:post.id===demo.id,unread:!reads.includes(id),text:post.authorName+" 在笔记里 @ 了你，点开看看吧。"};
   });
 }
+function OwoAvatarTestMessage({game,legacy=false,onOpen}) {
+  if(legacy)return React.createElement("section",{className:"owo-avatar-test-message is-legacy","aria-label":game.title+"，旧版本测试提醒"},
+    React.createElement("h3",{className:"owo-avatar-test-title"},"测一测，",React.createElement("strong",null,game.title+(/[？?]$/.test(game.title)?"":"？"))),
+    React.createElement("p",{className:"owo-avatar-test-update"},"当前版本暂不支持打开测试，请将鸥我更新至最新版后体验。"));
+  return React.createElement(game.externalUrl?"a":"button",{
+    className:"owo-avatar-test-message",type:game.externalUrl?undefined:"button",href:game.externalUrl||undefined,
+    target:game.externalUrl?"_blank":undefined,rel:game.externalUrl?"noopener noreferrer":undefined,
+    onClick:game.externalUrl?undefined:()=>onOpen?.(game),
+    "aria-label":"这个测试，有点懂你✨："+game.title+(game.externalUrl?"（在新标签页打开）":"")
+  },React.createElement("div",{className:"owo-avatar-test-cover"},
+    game.coverImage?React.createElement("img",{src:game.coverImage,alt:game.title,draggable:false}):React.createElement("div",{className:"owo-avatar-test-art"},game.title)),
+    React.createElement("span",{className:"owo-avatar-test-action"},React.createElement("span",null,"这个测试，有点懂你✨"),React.createElement(PhosphorIcon,{name:"arrow-right",size:16,"aria-hidden":true})));
+}
 function AvatarScreen({
   navActive,
   onNav,
@@ -82249,6 +82277,7 @@ function AvatarScreen({
 }) {
   const [pointsOpen,setPointsOpen]=useState(false),[pointsCompose,setPointsCompose]=useState(false),[activeTestGame,setActiveTestGame]=useState(null),[testReminderTime]=useState(()=>Date.now());
   const [feed, setFeed] = useState(AVATAR_INIT_FEED);
+  const [legacyTestsDemo,setLegacyTestsDemo]=useState(false);
   const schedule = useOwoSafeTimers();
   const growth = useOwoGrowth();
   const demo = React.useMemo(()=>owoAvatarMentionDemo(profileName),[profileName]);
@@ -82430,7 +82459,10 @@ function AvatarScreen({
       color: T.text3,
       cursor: "text"
     }
-  }, tagline))), React.createElement(OwoPointsEntry,{onClick:()=>setPointsOpen(true)})), React.createElement("div", {
+  }, tagline))), React.createElement(OwoPointsEntry,{onClick:()=>setPointsOpen(true)})), React.createElement("div",{className:"owo-avatar-test-preview",role:"group","aria-label":"测试消息演示"},
+    React.createElement("span",{role:"status"},legacyTestsDemo?"测试消息 · 旧版本样式":"测试消息 · 当前样式"),
+    React.createElement("button",{type:"button","aria-pressed":legacyTestsDemo,onClick:()=>{setLegacyTestsDemo(value=>!value);schedule(()=>scrollRef.current?.querySelector(".owo-avatar-test-message")?.scrollIntoView({block:"start",behavior:"auto"}),0);}},"旧版本演示")
+  ), React.createElement("div", {
     ref: scrollRef,
     role:"log", "aria-label":"我的分身消息", "aria-live":"polite", "aria-relevant":"additions text",
     style: {
@@ -82491,22 +82523,19 @@ function AvatarScreen({
       size: 30
     }) : React.createElement(MyAIAv, {
       size: 30
-    }), React.createElement(isTestReminder&&item.testGame.externalUrl?"a":isMention||isTestReminder?"button":"div", {
-      type:isMention||isTestReminder&&!item.testGame.externalUrl?"button":undefined,
-      href:isTestReminder?item.testGame.externalUrl:undefined,
-      target:isTestReminder&&item.testGame.externalUrl?"_blank":undefined,
-      rel:isTestReminder&&item.testGame.externalUrl?"noopener noreferrer":undefined,
-      className:isMention?"owo-avatar-mention-message":isTestReminder?"owo-avatar-test-message":undefined,
+    }), isTestReminder ? React.createElement(OwoAvatarTestMessage,{game:item.testGame,legacy:legacyTestsDemo,onOpen:setActiveTestGame}) : React.createElement(isMention?"button":"div", {
+      type:isMention?"button":undefined,
+      className:isMention?"owo-avatar-mention-message":undefined,
       "data-owo-mention-id":isMention?item.id:undefined,
-      "aria-label":isMention?(item.unread?"未读，":"")+item.text+" 查看笔记："+(item.mentionPost.publishTitle||item.mentionPost.title):isTestReminder?"这个测试，有点懂你✨："+item.testGame.title+(item.testGame.externalUrl?"（在新标签页打开）":""):undefined,
-      onClick:isMention?event=>openMention(item,event):isTestReminder&&!item.testGame.externalUrl?()=>setActiveTestGame(item.testGame):undefined,
+      "aria-label":isMention?(item.unread?"未读，":"")+item.text+" 查看笔记："+(item.mentionPost.publishTitle||item.mentionPost.title):undefined,
+      onClick:isMention?event=>openMention(item,event):undefined,
       style: {
         maxWidth: "calc(100% - 76px)",
         width: "fit-content",
         minWidth: 0,
         boxSizing: "border-box",
         flex: "0 1 auto",
-        padding: isTestReminder ? 1 : "10px 14px",
+        padding: "10px 14px",
         fontSize: 13.5,
         lineHeight: 1.5,
         letterSpacing: 0,
@@ -82520,9 +82549,7 @@ function AvatarScreen({
         border: bs.border,
         position: "relative"
       }
-    }, isTestReminder ? React.createElement(React.Fragment,null,
-      React.createElement("div",{className:"owo-avatar-test-cover",style:{"--test-accent":item.testGame.colors?.[0]||"#8478e8","--test-soft":item.testGame.colors?.[1]||"#c9c3fa",background:item.testGame.coverImage?"transparent":undefined}},item.testGame.coverImage?React.createElement("img",{src:item.testGame.coverImage,alt:item.testGame.title,draggable:false}):React.createElement("div",{className:"owo-avatar-test-art"},React.createElement(PhosphorIcon,{name:item.testGame.icon||"sparkle",size:25,color:"#fff",weight:"duotone"}),React.createElement("div",null,item.testGame.title))),
-      React.createElement("span",{className:"owo-avatar-test-action"},"这个测试，有点懂你✨",React.createElement(PhosphorIcon,{name:"arrow-right",size:16,"aria-hidden":true}))) : isMention ? React.createElement(React.Fragment,null,
+    }, isMention ? React.createElement(React.Fragment,null,
       React.createElement("span",{className:"owo-avatar-mention-heading"},item.unread&&React.createElement("span",{className:"owo-avatar-mention-dot","aria-hidden":true}),item.demo?"@ 提醒 · 演示":"@ 提醒",React.createElement("span",null,item.unread?"未读":"已读")),
       React.createElement("span",null,item.text),
       React.createElement("strong",{className:"owo-avatar-mention-title"},item.mentionPost.publishTitle||item.mentionPost.title),
